@@ -1,0 +1,55 @@
+ValueError                               
+Traceback (most recent call last)
+<ipython-input-65-e1989c26aeea> in <module>()
+----> 1 igm['area'].astype(float)
+
+/opt/conda/lib/python3.6/site-packages/pandas/util/_decorators.py in wrapper(*args, **kwargs)
+    176                 else:
+    177                     kwargs[new_arg_name] = new_arg_value
+--> 178             return func(*args, **kwargs)
+    179         return wrapper
+    180     return _deprecate_kwarg
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/generic.py in astype(self, dtype, copy, errors, **kwargs)
+   4999             # else, only a single dtype is given
+   5000             new_data = self._data.astype(dtype=dtype, copy=copy, errors=errors,
+-> 5001                                          **kwargs)
+   5002             return self.constructor(new_data).finalize_(self)
+   5003 
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/internals.py in astype(self, dtype, **kwargs)
+   3712 
+   3713     def astype(self, dtype, **kwargs):
+-> 3714         return self.apply('astype', dtype=dtype, **kwargs)
+   3715 
+   3716     def convert(self, **kwargs):
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/internals.py in apply(self, f, axes, filter, do_integrity_check, consolidate, **kwargs)
+   3579 
+   3580             kwargs['mgr'] = self
+-> 3581             applied = getattr(b, f)(**kwargs)
+   3582             result_blocks = _extend_blocks(applied, result_blocks)
+   3583 
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/internals.py in astype(self, dtype, copy, errors, values, **kwargs)
+    573     def astype(self, dtype, copy=False, errors='raise', values=None, **kwargs):
+    574         return self._astype(dtype, copy=copy, errors=errors, values=values,
+--> 575                             **kwargs)
+    576 
+    577     def _astype(self, dtype, copy=False, errors='raise', values=None,
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/internals.py in _astype(self, dtype, copy, errors, values, klass, mgr, **kwargs)
+    662 
+    663                 # _astype_nansafe works fine with 1-d only
+--> 664                 values = astype_nansafe(values.ravel(), dtype, copy=True)
+    665                 values = values.reshape(self.shape)
+    666 
+
+/opt/conda/lib/python3.6/site-packages/pandas/core/dtypes/cast.py in astype_nansafe(arr, dtype, copy)
+    728 
+    729     if copy:
+--> 730         return arr.astype(dtype, copy=True)
+    731     return arr.view(dtype)
+    732 
+
+ValueError: could not convert string to float: '5,780.00'
